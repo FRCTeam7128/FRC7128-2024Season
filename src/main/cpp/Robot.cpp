@@ -8,56 +8,74 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-void Robot::RobotInit() {
+void Robot::RobotInit()
+{
+  m_motorFL.SetInverted(true);
+  m_motorBL.Follow(m_motorFL);
+  m_motorBR.Follow(m_motorFR);
+}
+
+void Robot::RobotPeriodic()
+{
 
 }
 
-void Robot::RobotPeriodic() {
+void Robot::AutonomousInit()
+{
 
 }
 
-void Robot::AutonomousInit() {
+void Robot::AutonomousPeriodic()
+{
 
 }
 
-void Robot::AutonomousPeriodic() {
+void Robot::TeleopInit()
+{
 
 }
 
-void Robot::TeleopInit() {
+void Robot::TeleopPeriodic()
+{
+  double forward = m_movementCOntroller.GetLeftY(),
+    turning = m_movementCOntroller.GetRightX();
+
+  m_robotDrive.ArcadeDrive(forward, turning, true);
+}
+
+void Robot::DisabledInit()
+{
 
 }
 
-void Robot::TeleopPeriodic() {
+void Robot::DisabledPeriodic()
+{
 
 }
 
-void Robot::DisabledInit() {
+void Robot::TestInit()
+{
 
 }
 
-void Robot::DisabledPeriodic() {
+void Robot::TestPeriodic()
+{
 
 }
 
-void Robot::TestInit() {
+void Robot::SimulationInit()
+{
 
 }
 
-void Robot::TestPeriodic() {
-
-}
-
-void Robot::SimulationInit() {
-
-}
-
-void Robot::SimulationPeriodic() {
+void Robot::SimulationPeriodic()
+{
 
 }
 
 #ifndef RUNNING_FRC_TESTS
-int main() {
+int main()
+{
   return frc::StartRobot<Robot>();
 }
 #endif
