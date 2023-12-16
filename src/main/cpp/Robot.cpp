@@ -13,6 +13,9 @@ void Robot::RobotInit()
   m_motorFL.SetInverted(true);
   m_motorBL.Follow(m_motorFL);
   m_motorBR.Follow(m_motorFR);
+
+  m_autoChooser.AddOption("Default", kAutoNameDefault);
+  m_autoChooser.AddOption("Custom", kAutoNameCustom);
 }
 
 void Robot::RobotPeriodic()
@@ -22,7 +25,8 @@ void Robot::RobotPeriodic()
 
 void Robot::AutonomousInit()
 {
-
+  m_autoSelected = m_autoChooser.GetSelected();
+  wpi::outs() << "Initiated auto with auto routine \"" << m_autoSelected << "\" selected.\n";
 }
 
 void Robot::AutonomousPeriodic()
@@ -32,13 +36,13 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit()
 {
-
+  wpi::outs() << "Teleop initiated.\n";
 }
 
 void Robot::TeleopPeriodic()
 {
-  double forward = m_movementCOntroller.GetLeftY(),
-    turning = m_movementCOntroller.GetRightX();
+  double forward = m_driveController.GetLeftY(),
+    turning = m_driveController.GetRightX();
 
   m_robotDrive.ArcadeDrive(forward, turning, true);
 }

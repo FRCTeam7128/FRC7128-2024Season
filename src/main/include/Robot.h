@@ -8,7 +8,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
-#include "frc/drive/RobotDriveBase.h"
+#include <frc/motorcontrol/MotorControllerGroup.h>
 #include <frc/drive/DifferentialDrive.h>
 
 #include "ctre/Phoenix.h"
@@ -36,12 +36,15 @@ class Robot : public frc::TimedRobot
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
-  frc::XboxController m_movementCOntroller{ 0 };
+  frc::XboxController m_driveController{ 0 };
 
-  WPI_VictorSPX m_motorFR(1),
-    m_motorBR(2),
-    m_motorFL(3),
-    m_motorBL(4);
+  WPI_VictorSPX m_motorFL{ 1 },
+    m_motorBL{ 2 },
+    m_motorFR{ 3 },
+    m_motorBR{ 4 };
 
-  frc::DifferentialDrive m_robotDrive(m_motorFL, m_motorFR);
+  // frc::MotorControllerGroup m_leftMotors{ m_motorFL, m_motorBL },
+  //   m_rightMotors{ m_motorFR, m_motorBR };
+
+  frc::DifferentialDrive m_robotDrive{ m_motorFL, m_motorFR };
 };
